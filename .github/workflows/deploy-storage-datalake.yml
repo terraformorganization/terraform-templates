@@ -4,7 +4,6 @@ on:
   push:
     paths:
       - 'templates/storage-datalake/**'
-      - '!templates/storage-datalake/.github/workflows/**'
     branches: [ desarrollo ]
   workflow_dispatch:
 
@@ -23,7 +22,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./
+        working-directory: ./templates/storage-datalake
 
     steps:
       - name: Checkout
@@ -33,18 +32,9 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.0
-      
-      - name: Azure Login
-        uses: azure/login@v1
-        with:
-          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Terraform Init
         run: terraform init
-
-      - name: Terraform Format
-        run: terraform fmt -check
-        continue-on-error: true
 
       - name: Terraform Plan
         run: terraform plan -out=tfplan

@@ -4,6 +4,7 @@ on:
   push:
     paths:
       - 'templates/storage-datalake/**'
+      - '!templates/storage-datalake/.github/workflows/**'
     branches: [ desarrollo ]
   workflow_dispatch:
 
@@ -12,6 +13,7 @@ env:
   ARM_CLIENT_SECRET: ${{ secrets.AZURE_CLIENT_SECRET }}
   ARM_SUBSCRIPTION_ID: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   ARM_TENANT_ID: ${{ secrets.AZURE_TENANT_ID }}
+  TF_IN_AUTOMATION: true
 
 jobs:
   deploy:
@@ -21,7 +23,7 @@ jobs:
 
     defaults:
       run:
-        working-directory: ./templates/storage-datalake
+        working-directory: ./
 
     steps:
       - name: Checkout
@@ -31,6 +33,11 @@ jobs:
         uses: hashicorp/setup-terraform@v1
         with:
           terraform_version: 1.0.0
+      
+      - name: Azure Login
+        uses: azure/login@v1
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
 
       - name: Terraform Init
         run: terraform init

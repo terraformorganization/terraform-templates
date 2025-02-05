@@ -7,3 +7,7 @@ Template para desplegar un Azure Storage Account con capacidades de Data Lake Ge
 - Resource Group
 - Storage Account con Data Lake Gen2 habilitado (HNS)
 - Containers/File Systems configurables
+
+
+## Outputs
+- Examples

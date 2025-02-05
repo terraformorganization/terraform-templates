@@ -10,4 +10,4 @@ Template para desplegar un Azure Storage Account con capacidades de Data Lake Ge
 
 
 ## Outputs
-- Examples
+- Examples datalake salidas

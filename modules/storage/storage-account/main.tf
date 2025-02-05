@@ -1,23 +1,18 @@
-resource "azurerm_storage_account" "main" {
-  name                     = var.storage_account_name
-  resource_group_name      = var.resource_group_name
-  location                 = var.location
-  account_tier             = var.account_tier
-  account_replication_type = var.replication_type
-  min_tls_version         = "TLS1_2"
-
-  network_rules {
-    default_action = "Deny"
-    ip_rules       = var.allowed_ips
-    bypass         = ["AzureServices"]
-  }
-
-  tags = var.tags
+resource "azurerm_resource_group" "rg" {
+  name     = var.resource_group_name
+  location = var.location
 }
 
-resource "azurerm_storage_container" "containers" {
-  for_each              = toset(var.container_names)
-  name                  = each.value
-  storage_account_name  = azurerm_storage_account.main.name
+resource "azurerm_storage_account" "storage" {
+  name                     = var.storage_account_name
+  resource_group_name      = azurerm_resource_group.rg.name
+  location                 = azurerm_resource_group.rg.location
+  account_tier             = "Standard"
+  account_replication_type = "LRS"
+}
+
+resource "azurerm_storage_container" "blob_container" {
+  name                  = var.container_name
+  storage_account_name  = azurerm_storage_account.storage.name
   container_access_type = "private"
 }

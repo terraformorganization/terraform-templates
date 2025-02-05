@@ -1,14 +1,23 @@
-variable "storage_account_name" {
-  type        = string
-  description = "Nombre de la cuenta de almacenamiento"
-}
-
 variable "resource_group_name" {
-  type        = string
   description = "Nombre del grupo de recursos"
+  type        = string
+  default     = "terraform"
 }
 
 variable "location" {
-  type        = string
   description = "Ubicación de Azure"
+  type        = string
+  default     = "eastus2"
+}
+
+variable "storage_account_name" {
+  description = "Nombre de la cuenta de almacenamiento"
+  type        = string
+  default     = "terraformblob"
+}
+
+variable "container_name" {
+  description = "Nombre del contenedor de blobs"
+  type        = string
+  default     = "terraforcontainer"
 }

@@ -13,7 +13,7 @@ variable "location" {
 variable "storage_account_name" {
   description = "Nombre de la cuenta de almacenamiento"
   type        = string
-  default     = "terraformblob"
+  default     = "terraformblob1223"
 }
 
 variable "container_name" {

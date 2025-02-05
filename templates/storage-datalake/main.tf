@@ -13,10 +13,6 @@ resource "azurerm_storage_account" "datalake" {
   account_replication_type = var.replication_type
   account_kind            = "StorageV2"
   is_hns_enabled          = true  # Habilita las características de Data Lake Gen2
-
-  # Configuraciones de seguridad
-  enable_https_traffic_only = true
-  min_tls_version          = "TLS1_2"
 }
 
 # Containers/File Systems
